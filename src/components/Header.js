@@ -9,7 +9,7 @@ function Header() {
       {/*Header Left */}
       <HeaderLeft>
         <HeaderAvatar
-        //ToDO Add onClick
+        //TODO Add onClick
         />
         <AccessTime />
       </HeaderLeft>
