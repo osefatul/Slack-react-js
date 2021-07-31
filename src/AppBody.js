@@ -12,4 +12,7 @@ function AppBody() {
 
 export default AppBody;
 
-const BodyContainer = styled.div``;
+const BodyContainer = styled.div`
+  display: flex;
+  height: 100vh;
+`;
