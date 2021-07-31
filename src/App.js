@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Header from "./components/Header";
+import AppBody from "./AppBody";
 
 import "./App.css";
 
@@ -9,15 +10,19 @@ function App() {
     <div className="App">
       <Router>
         <>
-          <Switch>
-            <Route path="/" exact>
-              <Header />
-            </Route>
+          <Header />
 
-            <Route path="/"></Route>
+          <AppBody>
+            <Switch>
+              <Route path="/" exact>
+                {/*Chat*/}
+              </Route>
 
-            <Route path=""></Route>
-          </Switch>
+              <Route path="/"></Route>
+
+              <Route path=""></Route>
+            </Switch>
+          </AppBody>
         </>
       </Router>
     </div>
