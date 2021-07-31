@@ -11,18 +11,7 @@ function App() {
       <Router>
         <>
           <Header />
-
-          <AppBody>
-            <Switch>
-              <Route path="/" exact>
-                {/*Chat*/}
-              </Route>
-
-              <Route path="/"></Route>
-
-              <Route path=""></Route>
-            </Switch>
-          </AppBody>
+          <AppBody />
         </>
       </Router>
     </div>
