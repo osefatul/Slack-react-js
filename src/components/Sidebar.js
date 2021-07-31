@@ -9,6 +9,7 @@ import FileCopyIcon from "@material-ui/icons/FileCopy";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AppsIcon from "@material-ui/icons/Apps";
+import AddIcon from "@material-ui/icons/Add";
 
 import React from "react";
 import styled from "styled-components";
@@ -37,10 +38,10 @@ function Sidebar() {
       <SidebarOption Icon={AppsIcon} title="Apps" />
       <SidebarOption Icon={FileCopyIcon} title="File browser" />
       <SidebarOption Icon={ExpandLessIcon} title="Show less" />
-
       <hr />
-
       <SidebarOption Icon={ExpandMoreIcon} title="Channels" />
+      <hr />
+      <SidebarOption Icon={AddIcon} AddChannelOption title="AddChannel" />
     </SidebarContainer>
   );
 }
@@ -53,6 +54,11 @@ const SidebarContainer = styled.div`
   border-top: 1px solid #49274b;
   min-width: 260px;
   margin-top: 60px;
+
+  > hr {
+    margin: 10px 0; //top and bottom margin
+    border: 1px solid #49274b;
+  }
 `;
 const SidebarHeader = styled.div`
   display: flex;
