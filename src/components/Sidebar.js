@@ -41,7 +41,7 @@ function Sidebar() {
       <hr />
       <SidebarOption Icon={ExpandMoreIcon} title="Channels" />
       <hr />
-      <SidebarOption Icon={AddIcon} AddChannelOption title="AddChannel" />
+      <SidebarOption Icon={AddIcon} addChannelOption title="AddChannel" />
     </SidebarContainer>
   );
 }

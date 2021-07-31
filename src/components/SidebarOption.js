@@ -1,13 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 
-function SidebarOption({ Icon, title, AddChannelOption }) {
-  return (
-    <SidebarOptionContainer>
-      {/* we might render the component now without passing an ICon */}
-      {Icon && <Icon fontSize="small" style={{ padding: 10 }} />}
+function SidebarOption({ Icon, title, addChannelOption }) {
+  const addChannel = () => {};
+  const selectChannel = () => {};
 
-      {/* if you pass an Icon then render title*/}
+  return (
+    <SidebarOptionContainer
+      // if addChannelOption is there then add chanell otherwise select the channel
+      onClick={addChannelOption ? addChannel : selectChannel}
+    >
+      {/* Render the component now if Icon is there */}
+      {Icon && <Icon fontSize="small" style={{ padding: 10 }} />}
+      {/* if you pass an Icon then render title as well*/}
       {Icon ? (
         <h3>{title}</h3>
       ) : (
