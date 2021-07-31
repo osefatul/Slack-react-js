@@ -10,13 +10,18 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AppsIcon from "@material-ui/icons/Apps";
 import AddIcon from "@material-ui/icons/Add";
-
+import { db } from "./firebase";
 import React from "react";
 import styled from "styled-components";
 import App from "../App";
 import SidebarOption from "./SidebarOption";
+import { useCollection } from "react-firebase-hooks/firestore";
 
 function Sidebar() {
+  // instead of normal react hook we will use react-firebase hook.
+  // So How can I access the database from the firestore.
+  const [channels, loading, error] = useCollection(db.collection("rooms"));
+
   return (
     <SidebarContainer>
       <SidebarHeader>
@@ -42,6 +47,13 @@ function Sidebar() {
       <SidebarOption Icon={ExpandMoreIcon} title="Channels" />
       <hr />
       <SidebarOption Icon={AddIcon} addChannelOption title="AddChannel" />
+
+      {/* key is efficient for react. whenver we add a new component that key is defined for. we dont need to re-render the whole list
+      react will just render the component that was just added and react detect that because every key is different than others
+      */}
+      {channels?.docs.map((doc) => (
+        <SidebarOption key={doc.id} id={doc.id} title={doc.data().name} />
+      ))}
     </SidebarContainer>
   );
 }
