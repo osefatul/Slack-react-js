@@ -17,7 +17,12 @@ function ChatInput({ channelName, channelId }) {
     db.collection("rooms").doc(channelId).collection("messages").add({
       message: input,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      user: "Sefatullah Omar",
+      userImage:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Afghanistan.svg/1200px-Flag_of_Afghanistan.svg.png",
     });
+
+    setInput(" "); // once we send the message we then make the input empty
   };
 
   return (
@@ -25,7 +30,7 @@ function ChatInput({ channelName, channelId }) {
       <form action="">
         <input
           value={input}
-          onChange={(e) => setInput(e.target.value)} //once text is submitted this will be empty
+          onChange={(e) => setInput(e.target.value)}
           type="text"
           placeholder={`Message #ROOM`}
         />
