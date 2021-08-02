@@ -4,10 +4,30 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { selectRoomId } from "../features/appSlice";
 import ChatInput from "./ChatInput";
+import { useCollection, useDocument } from "react-firebase-hooks/firestore";
+import { db } from "./firebase";
 
 function Chat() {
   //This will pull out the roomId, and then we will use this roomId in the ChatMessages and ChatInput to push the msges int it
   const roomId = useSelector(selectRoomId);
+
+  //we get the room details so we can add the room details into the chat div
+  const [roomDetails] = useDocument(
+    roomId && db.collection("rooms").doc(roomId)
+  );
+
+  //we get the room messages
+  const [roomMessages] = useCollection(
+    roomId &&
+      db
+        .collection("rooms")
+        .doc(roomId)
+        .collection("messages")
+        .orderBy("timestamp", "asc")
+  );
+
+  console.log(roomDetails);
+  console.log(roomMessages);
 
   return (
     <ChatContainer>
