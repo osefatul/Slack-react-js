@@ -35,48 +35,58 @@ function Chat() {
   //useEffect will render when the component mount as well when the roomId changes.
   //we will also use the loading variable form the useCollection. it means when the room is loading change or refine this code.
   //go to the chatReference and go to the current thing you pointing out and scrolldown
+  //behavior: smooth will make it smoother when it scrolls down automatically to the end of the messages of the page
   useEffect(() => {
-    chatRef?.current?.scrollIntoView();
+    chatRef?.current?.scrollIntoView({
+      behavior: "smooth",
+    });
   }, [roomId, loading]);
 
   return (
     <ChatContainer>
-      <>
-        <Header>
-          <HeaderLeft>
-            <h4>
-              <strong>{roomDetails?.data().name}</strong>
-            </h4>
-            <StarBorderOutlined />
-          </HeaderLeft>
-          <HeaderRight>
-            <p>
-              <InfoOutlined /> Details
-            </p>
-          </HeaderRight>
-        </Header>
+      {/* the channels and room messages will be shown if we click on them, if we havent click on any of them then just show an empty page in the chat div */}
+      {roomDetails && roomMessages && (
+        <>
+          <Header>
+            <HeaderLeft>
+              <h4>
+                <strong>{roomDetails?.data().name}</strong>
+              </h4>
+              <StarBorderOutlined />
+            </HeaderLeft>
+            <HeaderRight>
+              <p>
+                <InfoOutlined /> Details
+              </p>
+            </HeaderRight>
+          </Header>
 
-        <ChatMessages>
-          {roomMessages?.docs.map((doc) => {
-            const { message, timestamp, user, userImage } = doc.data();
+          <ChatMessages>
+            {roomMessages?.docs.map((doc) => {
+              const { message, timestamp, user, userImage } = doc.data();
 
-            return (
-              <Message
-                key={doc.id}
-                message={message}
-                timestamp={timestamp}
-                user={user}
-                userImage={userImage}
-              />
-            );
-          })}
+              return (
+                <Message
+                  key={doc.id}
+                  message={message}
+                  timestamp={timestamp}
+                  user={user}
+                  userImage={userImage}
+                />
+              );
+            })}
 
-          {/* Auto scroll when we reach to the end of chat on viewport */}
-          <ChatBottom ref={chatRef} />
-        </ChatMessages>
+            {/* Auto scroll when we reach to the end of chat on viewport */}
+            <ChatBottom ref={chatRef} />
+          </ChatMessages>
 
-        <ChatInput channelName={roomDetails?.data().name} channelId={roomId} />
-      </>
+          <ChatInput
+            chatRef={chatRef}
+            channelName={roomDetails?.data().name}
+            channelId={roomId}
+          />
+        </>
+      )}
     </ChatContainer>
   );
 }

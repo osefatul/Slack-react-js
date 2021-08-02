@@ -4,7 +4,7 @@ import { Button } from "@material-ui/core";
 import { db } from "./firebase";
 import firebase from "firebase";
 
-function ChatInput({ channelName, channelId }) {
+function ChatInput({ channelName, channelId, chatRef }) {
   const [input, setInput] = useState("");
 
   const sendMessage = (e) => {
@@ -21,6 +21,9 @@ function ChatInput({ channelName, channelId }) {
       userImage:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Afghanistan.svg/1200px-Flag_of_Afghanistan.svg.png",
     });
+
+    //the smoothe bevaoir effect will also be done here once we submit any input and the message goes to the end of the messages. it will scroll down automatically smoothly.
+    chatRef.current.scrollIntoView({ behavoir: "smooth" });
 
     setInput(" "); // once we send the message we then make the input empty
   };
