@@ -1,5 +1,5 @@
 import { InfoOutlined, StarBorderOutlined } from "@material-ui/icons";
-import React from "react";
+import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { selectRoomId } from "../features/appSlice";
@@ -9,6 +9,8 @@ import { db } from "./firebase";
 import Message from "./Message";
 
 function Chat() {
+  const chatRef = useRef(null);
+
   //This will pull out the roomId, and then we will use this roomId in the ChatMessages and ChatInput to push the msges int it
   const roomId = useSelector(selectRoomId);
 
@@ -61,6 +63,9 @@ function Chat() {
               />
             );
           })}
+
+          {/* Auto scroll when we reach to the end of chat on viewport */}
+          <ChatBottom ref={chatRef} />
         </ChatMessages>
 
         <ChatInput channelName={roomDetails?.data().name} channelId={roomId} />
@@ -116,3 +121,7 @@ const HeaderRight = styled.div`
 // --------------------------------- Chat Messages
 
 const ChatMessages = styled.div``;
+
+const ChatBottom = styled.div`
+  padding-bottom: 200px;
+`;
