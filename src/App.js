@@ -23,6 +23,7 @@ function App() {
       </AppLoading>
     );
   }
+
   return (
     <div className="App">
       <Router>
