@@ -95,8 +95,9 @@ export default Chat;
 
 const ChatContainer = styled.div`
   flex: 0.75;
+  //overflow-y: scroll;
+  overflow-y: auto; // if there is a necessatiy for it, it will have scrollbar if not then it wont
   margin-top: 60px;
-  overflow-y: scroll;
   flex-grow: 1;
 `;
 
@@ -105,6 +106,8 @@ const Header = styled.div`
   justify-content: space-between;
   padding: 20px;
   border-bottom: 1px solid lightgray;
+  position: sticky;
+  z-index: 999;
 `;
 
 const HeaderLeft = styled.div`

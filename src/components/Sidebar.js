@@ -10,17 +10,19 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AppsIcon from "@material-ui/icons/Apps";
 import AddIcon from "@material-ui/icons/Add";
-import { db } from "./firebase";
+import { auth, db } from "./firebase";
 import React from "react";
 import styled from "styled-components";
 import App from "../App";
 import SidebarOption from "./SidebarOption";
 import { useCollection } from "react-firebase-hooks/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function Sidebar() {
   // instead of normal react hook we will use react-firebase hook.
   // So How can I access the database from the firestore.
   const [channels, loading, error] = useCollection(db.collection("rooms"));
+  const [user] = useAuthState(auth);
 
   return (
     <SidebarContainer>
@@ -29,7 +31,7 @@ function Sidebar() {
           <h2>WDK Production</h2>
           <h3>
             <FiberManualRecord />
-            Sefatullah Omar
+            {user.displayName}
           </h3>
         </SidebarInfo>
         <Create />
@@ -61,11 +63,15 @@ function Sidebar() {
 export default Sidebar;
 const SidebarContainer = styled.div`
   color: white;
+  //height: 100vh;
   background-color: var(--slack-color);
   flex: 0.25;
   border-top: 1px solid #49274b;
   min-width: 260px;
   margin-top: 60px;
+
+  position: sticky;
+  z-index: 999;
 
   > hr {
     margin: 10px 0; //top and bottom margin
