@@ -1,5 +1,5 @@
 import { InfoOutlined, StarBorderOutlined } from "@material-ui/icons";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { selectRoomId } from "../features/appSlice";
@@ -20,7 +20,7 @@ function Chat() {
   );
 
   //we get the room messages
-  const [roomMessages] = useCollection(
+  const [roomMessages, loading, error] = useCollection(
     roomId &&
       db
         .collection("rooms")
@@ -31,6 +31,13 @@ function Chat() {
 
   // console.log(roomDetails?.data());
   // console.log(roomMessages);
+
+  //useEffect will render when the component mount as well when the roomId changes.
+  //we will also use the loading variable form the useCollection. it means when the room is loading change or refine this code.
+  //go to the chatReference and go to the current thing you pointing out and scrolldown
+  useEffect(() => {
+    chatRef?.current?.scrollIntoView();
+  }, [roomId, loading]);
 
   return (
     <ChatContainer>
