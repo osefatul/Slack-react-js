@@ -5,17 +5,22 @@ import AppBody from "./components/AppBody";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./components/firebase";
 import "./App.css";
+import Login from "./components/Login";
 
 function App() {
-  const [login, loading] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
   return (
     <div className="App">
       <Router>
-        <>
-          <Header />
-          <AppBody />
-        </>
+        {!user ? (
+          <Login />
+        ) : (
+          <>
+            <Header />
+            <AppBody />
+          </>
+        )}
       </Router>
     </div>
   );
