@@ -6,6 +6,7 @@ import { selectRoomId } from "../features/appSlice";
 import ChatInput from "./ChatInput";
 import { useCollection, useDocument } from "react-firebase-hooks/firestore";
 import { db } from "./firebase";
+import Message from "./Message";
 
 function Chat() {
   //This will pull out the roomId, and then we will use this roomId in the ChatMessages and ChatInput to push the msges int it
@@ -26,8 +27,8 @@ function Chat() {
         .orderBy("timestamp", "asc")
   );
 
-  console.log(roomDetails);
-  console.log(roomMessages);
+  // console.log(roomDetails?.data());
+  // console.log(roomMessages);
 
   return (
     <ChatContainer>
@@ -35,7 +36,7 @@ function Chat() {
         <Header>
           <HeaderLeft>
             <h4>
-              <strong>#Room-name</strong>
+              <strong>{roomDetails?.data().name}</strong>
             </h4>
             <StarBorderOutlined />
           </HeaderLeft>
@@ -46,9 +47,23 @@ function Chat() {
           </HeaderRight>
         </Header>
 
-        <ChatMessages>{/* List out All the Messages */}</ChatMessages>
+        <ChatMessages>
+          {roomMessages?.docs.map((doc) => {
+            const { message, timestamp, user, userImage } = doc.data();
 
-        <ChatInput channelId={roomId} />
+            return (
+              <Message
+                key={doc.id}
+                message={message}
+                timestamp={timestamp}
+                user={user}
+                userImage={userImage}
+              />
+            );
+          })}
+        </ChatMessages>
+
+        <ChatInput channelName={roomDetails?.data().name} channelId={roomId} />
       </>
     </ChatContainer>
   );
